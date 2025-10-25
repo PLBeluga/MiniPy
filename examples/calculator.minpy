@@ -1,0 +1,59 @@
+# MiniPy Calculator - A simple interactive calculator
+
+print(bold(blue("🔢 MiniPy Calculator")))
+print("=" * 30)
+
+def calculate(num1, operator, num2):
+    if operator == "+":
+        return num1 + num2
+    elif operator == "-":
+        return num1 - num2
+    elif operator == "*":
+        return num1 * num2
+    elif operator == "/":
+        if num2 == 0:
+            return "Error: Division by zero!"
+        return num1 / num2
+    else:
+        return "Error: Unknown operator!"
+
+def get_number(prompt):
+    while True:
+        try:
+            return float(input(prompt))
+        except:
+            print(red("Please enter a valid number!"))
+
+# Main calculator loop
+while True:
+    print("\n" + yellow("Enter calculation or 'quit' to exit"))
+    
+    # Get first number
+    first = input("First number (or 'quit'): ")
+    if first == "quit":
+        break
+    
+    try:
+        num1 = float(first)
+    except:
+        print(red("Invalid number!"))
+        continue
+    
+    # Get operator
+    op = input("Operator (+, -, *, /): ")
+    if op not in ["+", "-", "*", "/"]:
+        print(red("Invalid operator!"))
+        continue
+    
+    # Get second number
+    num2 = get_number("Second number: ")
+    
+    # Calculate and display result
+    result = calculate(num1, op, num2)
+    
+    if str(result).startswith("Error"):
+        print(red(str(result)))
+    else:
+        print(green(f"{num1} {op} {num2} = {result}"))
+
+print(cyan("Thanks for using MiniPy Calculator! 👋"))

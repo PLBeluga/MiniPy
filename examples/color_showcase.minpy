@@ -1,0 +1,43 @@
+# MiniPy Color Showcase - See all the beautiful colors!
+
+print(bold("🎨 MiniPy Color Showcase"))
+print("=" * 40)
+
+# Basic colors
+print("\n" + bold("Basic Colors:"))
+print(red("Red text"))
+print(green("Green text"))
+print(blue("Blue text"))
+print(yellow("Yellow text"))
+print(magenta("Magenta text"))
+print(cyan("Cyan text"))
+print(white("White text"))
+
+# Bright colors
+print("\n" + bold("Bright Colors:"))
+print(bright_red("Bright red"))
+print(bright_green("Bright green"))
+print(bright_blue("Bright blue"))
+print(bright_yellow("Bright yellow"))
+
+# Background colors
+print("\n" + bold("Background Colors:"))
+print(bg_red("Red background"))
+print(bg_green("Green background"))
+print(bg_blue("Blue background"))
+print(bg_yellow("Yellow background"))
+
+# Text styles
+print("\n" + bold("Text Styles:"))
+print(bold("Bold text"))
+print(italic("Italic text"))
+print(underline("Underlined text"))
+print(dim("Dimmed text"))
+
+# Combinations
+print("\n" + bold("Color Combinations:"))
+print(bg_blue(bold(white("Bold white on blue"))))
+print(bg_red(bright_yellow("Bright yellow on red")))
+print(bg_green(bold(black("Bold black on green"))))
+
+print("\n" + bold("🌈 Colors make programming fun! 🌈"))

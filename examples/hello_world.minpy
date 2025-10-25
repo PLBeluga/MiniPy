@@ -1,0 +1,16 @@
+# MiniPy Hello World - The Classic First Program
+
+print("Hello, World!")
+print(green("Welcome to MiniPy programming!"))
+
+# Get user input
+name = input("What's your name? ")
+print(blue("Nice to meet you, " + name + "!"))
+
+# Show off some colors
+print(bold("MiniPy features:"))
+print("  " + yellow("• Python-like syntax"))
+print("  " + cyan("• Built-in color functions"))  
+print("  " + magenta("• Easy to learn and use"))
+
+print(bg_green(bold(" 🎉 Happy coding with MiniPy! 🎉 ")))
