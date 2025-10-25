@@ -31,10 +31,41 @@ fi
 
 # Install required packages
 echo -e "${BLUE}📦 Installing required packages...${NC}"
-python3 -m pip install --user pyinstaller colorama
+
+# Try different installation methods for different systems
+if python3 -m pip install --user pyinstaller colorama 2>/dev/null; then
+    echo -e "${GREEN}✅ Packages installed with pip --user${NC}"
+elif python3 -m pip install --break-system-packages pyinstaller colorama 2>/dev/null; then
+    echo -e "${GREEN}✅ Packages installed with --break-system-packages${NC}"
+elif command -v apt-get >/dev/null 2>&1; then
+    echo -e "${YELLOW}📦 Using system package manager...${NC}"
+    sudo apt-get update
+    sudo apt-get install -y python3-pip python3-venv
+    
+    # Create virtual environment
+    echo -e "${BLUE}🔧 Creating virtual environment...${NC}"
+    python3 -m venv minipy-build-env
+    source minipy-build-env/bin/activate
+    pip install pyinstaller colorama
+    echo -e "${GREEN}✅ Virtual environment created and packages installed${NC}"
+else
+    echo -e "${RED}❌ Could not install required packages${NC}"
+    echo "Please install pyinstaller and colorama manually:"
+    echo "  sudo apt install python3-pip python3-venv"
+    echo "  python3 -m venv venv && source venv/bin/activate"
+    echo "  pip install pyinstaller colorama"
+    exit 1
+fi
 
 # Build the executable
 echo -e "${BLUE}🔨 Building MiniPy executable...${NC}"
+
+# Use PyInstaller from virtual environment if it was created
+if [ -f "minipy-build-env/bin/activate" ]; then
+    source minipy-build-env/bin/activate
+    echo -e "${BLUE}Using virtual environment${NC}"
+fi
+
 python3 -m PyInstaller --onefile --name=minipy --console \
     --add-data="examples:examples" \
     --hidden-import=colorama \
@@ -202,3 +233,9 @@ echo ""
 echo -e "${BLUE}Test locally:${NC}"
 echo "  Generic: cd minipy-linux && ./install.sh"
 echo "  DEB: sudo dpkg -i minipy_1.0.0_amd64.deb"
+
+# Cleanup virtual environment if created
+if [ -d "minipy-build-env" ]; then
+    echo -e "${BLUE}🧹 Cleaning up build environment...${NC}"
+    rm -rf minipy-build-env
+fi
